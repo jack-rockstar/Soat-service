@@ -1,10 +1,9 @@
-const router=require('express').Router();
+const router = require('express').Router();
 
-const startPage=require('./routes/startPage');
-const prueba=require('./routes/openURL')
+const startPage = require('./routes/startPage');
+router.use('/rimac/startPage', startPage);
 
-router.use('/prueba' , prueba)
+const goto = require('./routes/goto');
+router.use('/rimac/goto', goto);
 
-
-
-module.exports=router;
+module.exports = router;
