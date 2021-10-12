@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const setup = require('./src/routes/setup');
 const router = require('./src/rimac');
+const destroy = require('./src/routes/destroy');
 
 const { json, urlencoded } = express;
 const app = express();
@@ -20,7 +21,7 @@ app.use(cors(corsOptions));
 
 app.use(router);
 global.browser = null;
-global.pages = {};
+global.pages = [];
 
 app.use('/', (req, res) => {
     res.send('Centro de emisión en RIMAC SEGUROS (Web Scrapping v1.0.0)');
@@ -29,5 +30,6 @@ app.use('/', (req, res) => {
 app.listen(port, async function () {
     console.log('=== DESPLEGANDO SERVIDOR CON PUPPETEER ===');
     await setup();
+    setInterval(destroy , 5000);
     console.log(`=== SERVIDOR DESPLEGADO CORRECTAMENTE [${port}] ===`)
 })

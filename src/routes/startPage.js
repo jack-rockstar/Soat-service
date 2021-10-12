@@ -1,18 +1,21 @@
 const router = require('express').Router();
+const { v4: uuidv4 } = require('uuid');
+
 
 router.route('/').post((req, res) => {
     var response = {};
     (async () => {
-        var idPage = Date.now();
         const page = await global.browser.newPage();
-        global.pages[idPage] = {};
-        global.pages[idPage].page = page;
-        global.pages[idPage].creation = idPage;
+        var tab = {};
+        tab.idPage = uuidv4();
+        tab.page = page;
+        tab.creation = Date.now();
+        global.pages.push(tab);
 
         // Seteando el response
         response.status = 200;
         response.message = 'Pestaña inicializada correctamente';
-        response.data = idPage;
+        response.data = tab.idPage;
 
         res.json(response);
     })();

@@ -7,7 +7,13 @@ router.route('/').post((req, res) => {
         var idPage = pp.idPage;
         var url = pp.url;
         
-        const page = await global.pages[idPage].page;
+        var page;
+        global.pages.forEach(tab => {
+            if (tab.idPage == idPage) {
+                page = tab.page;
+            }
+        });
+
         page.goto(url);
 
         response.status = 200;
